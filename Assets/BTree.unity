@@ -2181,7 +2181,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2205,13 +2205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23ff37f77449f6f3b33f8e34282170f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diamond: {fileID: 698535388}
+  diamond: {fileID: 1550492363}
   van: {fileID: 342849318}
---- !u!1 &698535388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a5028766c6c2448878d200bb33de1f59, type: 3}
-  m_PrefabInstance: {fileID: 390087451}
-  m_PrefabAsset: {fileID: 0}
+  backdoor: {fileID: 919599686}
 --- !u!1 &716268924
 GameObject:
   m_ObjectHideFlags: 0

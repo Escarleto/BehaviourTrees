@@ -20,4 +20,9 @@ public class Node
     {
         children.Add(n);
     }
+
+    public virtual Status Process()
+    {
+        return children[currentChild].Process();
+    }
 }

@@ -17,6 +17,8 @@ public class RobberBehaviour : MonoBehaviour
 
     Node.Status treeStatus = Node.Status.RUNNING;
 
+    [Range(0, 1000)] public int money = 800;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -24,6 +26,7 @@ public class RobberBehaviour : MonoBehaviour
         tree = new BehaviourTree();
         Sequence steal = new Sequence("Steal Something");
         Leaf goToDiamond = new Leaf("Go to Diamond", GoToDiamond);
+        Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
         Leaf goToVan = new Leaf("Go to Van", GoToVan);
         Leaf goToFrontdoor = new Leaf("Go to Frontdoor", GoToFrontkdoor);
         Leaf goToBackdoor = new Leaf("Go to Backdoor", GoToBackdoor);
@@ -32,6 +35,7 @@ public class RobberBehaviour : MonoBehaviour
         openDoor.AddChild(goToFrontdoor);
         openDoor.AddChild(goToBackdoor);
 
+        steal.AddChild(hasGotMoney);
         steal.AddChild(openDoor);
         steal.AddChild(goToDiamond);
         //steal.AddChild(goToBackdoor);
@@ -40,6 +44,13 @@ public class RobberBehaviour : MonoBehaviour
 
         tree.PrintTree();
         tree.Process();
+    }
+
+    public Node.Status HasMoney()
+    {
+        if (money >= 500)
+            return Node.Status.FAILURE;
+        return Node.Status.SUCCESS;
     }
 
     public Node.Status GoToDiamond()
@@ -54,7 +65,13 @@ public class RobberBehaviour : MonoBehaviour
 
     public Node.Status GoToVan()
     {
-        return GoToLocation(van.transform.position);
+        Node.Status s = GoToLocation(van.transform.position);
+        if (s == Node.Status.SUCCESS)
+        {
+            diamond.SetActive(false);
+            money += 300;
+        }
+        return s;
     }
 
     public Node.Status GoToFrontkdoor()
